@@ -31,10 +31,7 @@ Element.defaultProps = {
   externalProps: undefined,
 };
 
-// export const Element = () => <div>HELLO!</div>;
-
-// const container = document.querySelector(`#${process.env.MICROFRONTEND_HOST_NAME}`);
-const container = document.querySelector('#MFModuleTemplate');
+const container = document.querySelector(`#${process.env.MICRO_FRONTEND_HOST_NAME}`);
 if (container) {
   ReactDOM.render(<Element />, container);
 }

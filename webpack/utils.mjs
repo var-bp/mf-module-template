@@ -1,7 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 import escape from 'escape-string-regexp';
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 import { URL } from 'url'; // in browser, the URL in native accessible on window
 
 // https://stackoverflow.com/a/66651120
@@ -11,12 +13,7 @@ export const dirname = new URL('.', import.meta.url).pathname; // Will contain t
 export const environment = fs.existsSync(path.join(dirname, '../.env')) ? dotenv.config().parsed : {};
 
 export const ignoredFiles = (appSrc) =>
-  new RegExp(
-    `^(?!${escape(
-      path.normalize(appSrc + '/').replace(/[\\]+/g, '/')
-    )}).+/node_modules/`,
-    'g'
-  );
+  new RegExp(`^(?!${escape(path.normalize(appSrc + '/').replace(/[\\]+/g, '/'))}).+/node_modules/`, 'g');
 
 // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
 export const importJSON = (filePath) => JSON.parse(fs.readFileSync(new URL(filePath, import.meta.url)));

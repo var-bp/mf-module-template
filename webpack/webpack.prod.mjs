@@ -172,6 +172,7 @@ export default merge(
       }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin({
+        inject: true,
         filename: 'index.html',
         template: path.join(dirname, '../public/index.html'),
         environment: {

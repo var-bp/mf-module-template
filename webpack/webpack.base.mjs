@@ -1,13 +1,9 @@
 import path from 'path';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
+// eslint-disable-next-line import/extensions
 import ModuleFederationPlugin from 'webpack/lib/container/ModuleFederationPlugin.js';
-import {
-  environment,
-  dirname,
-  importJSON,
-  createSharedDependencies,
-} from './utils.mjs';
+import { environment, dirname, importJSON, createSharedDependencies } from './utils.mjs';
 
 const PACKAGE_JSON = importJSON(path.join(dirname, '../package.json'));
 
@@ -64,12 +60,7 @@ export default {
       },
       {
         // https://github.com/jantimon/html-webpack-plugin/issues/1589#issuecomment-768418074
-        exclude: [
-          /\.(js|mjs|jsx|ts|tsx)$/,
-          /\.html$/,
-          /\.(css|scss|sass)$/,
-          /\.(json|jsonp)$/,
-        ],
+        exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.(css|scss|sass)$/, /\.(json|jsonp)$/],
         type: 'asset/resource',
         generator: {
           filename: 'static/[name].[hash:8][ext]',
@@ -97,13 +88,15 @@ export default {
     // }),
     new ModuleFederationPlugin({
       name: environment.MICRO_FRONTEND_HOST_NAME,
-      filename: "js/remoteEntry.js",
+      filename: 'js/remoteEntry.js',
       exposes: {
-        "./App": path.join(dirname, '../src/bootstrap.tsx'),
+        './App': path.join(dirname, '../src/bootstrap.tsx'),
       },
-      remotes: JSON.parse(environment.IS_MICRO_FRONTEND_REMOTE ?? false) ? {
-        [environment.MICRO_FRONTEND_REMOTE_1_NAME]: `${environment.MICRO_FRONTEND_REMOTE_1_NAME}@${environment.MICRO_FRONTEND_HOST_URL}/js/remoteEntry.js`,
-      } : undefined,
+      remotes: JSON.parse(environment.IS_MICRO_FRONTEND_REMOTE ?? false)
+        ? {
+            [environment.MICRO_FRONTEND_REMOTE_1_NAME]: `${environment.MICRO_FRONTEND_REMOTE_1_NAME}@${environment.MICRO_FRONTEND_HOST_URL}/js/remoteEntry.js`,
+          }
+        : undefined,
       shared: createSharedDependencies(PACKAGE_JSON.dependencies),
     }),
     new ESLintPlugin({

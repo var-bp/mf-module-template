@@ -1,10 +1,5 @@
 import path from 'path';
-import {
-  environment,
-  ignoredFiles,
-  dirname,
-  getHTTPSCertificate,
-} from './utils.mjs';
+import { environment, ignoredFiles, dirname, getHTTPSCertificate } from './utils.mjs';
 
 export default {
   static: {
@@ -25,7 +20,7 @@ export default {
     },
   },
   server: {
-    type: "https",
+    type: 'https',
     options: {
       ...getHTTPSCertificate(),
     },
