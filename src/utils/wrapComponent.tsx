@@ -1,30 +1,30 @@
-import React from 'react';
+import * as React from 'react';
 
-interface Wrapper {
-  error?: React.ReactChild;
-  delayed?: React.ReactChild;
+interface IWrapper {
+  error?: JSX.Element;
+  delayed?: JSX.Element;
 }
 
-interface Props extends Wrapper {
+interface IProps extends IWrapper {
   children: React.ReactChild;
 }
 
-interface State {
+interface IState {
   hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends React.Component<IProps, IState> {
   static defaultProps = {
     error: undefined,
     delayed: undefined,
   };
 
-  state: State = {
+  state: IState = {
     hasError: false,
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): IState {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
@@ -48,7 +48,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 // const Header = wrapFederatedComponent(React.lazy(() => import(/* webpackPrefetch: true */ "nav/Header")));
 const wrapFederatedComponent =
   (Component: React.LazyExoticComponent<React.ComponentType<any>>) =>
-  ({ error, delayed, ...props }: Wrapper) =>
+  ({ error, delayed, ...props }: IWrapper) =>
     (
       <ErrorBoundary error={error} delayed={delayed}>
         <Component {...props} />

@@ -5,7 +5,10 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test';
-    readonly PUBLIC_URL: string;
+    readonly MICRO_FRONTEND_HOST_NAME: string;
+    readonly MICRO_FRONTEND_HOST_URL: string;
+    readonly MICRO_FRONTEND_HOST_PORT: string;
+    readonly IS_MICRO_FRONTEND_REMOTE: string;
   }
 }
 
